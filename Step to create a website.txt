@@ -1,0 +1,98 @@
+Step to create a website
+
+/create site
+django-admin startproject site1 ("site1" is the name of website)
+(or if it's error can use 'python -m django startproject site1')
+
+/point to folder or site
+cd site1 (if get out the folder or site 'cd ..' )
+
+/install database...
+python manage.py migrate
+
+/local host server gate 8888
+python manage.py runserver 8888
+
+Now the server is running so we cannot access the terminal. So press Crtl + C to return accessing terminal.
+
+/create super user for server
+python manage.py createsuperuser
+admin (name of user)
+123 (password user. recommend hard password)
+
+then text the line code 'python manage.py runserver 8888' to run server again, then add '/admin' continous on the site address to access into login site.
+
+
+/create a module 
+python manage.py startapp home ('home' is the name of module)
+
+/add a module 
+setting.py -> Installed apps -> 'home'
+
+/create a template (trang chu cua website)
+New folder -> 'Templates' -> create 'home.html'
+
+/access to 'home.html'
+html5-boilerplate
+
+
+/write a title
+	<header>
+	<header>
+    <body>
+
+<h4>Here is title place </h4> //DAY LA NOI DUNG HAM home.html
+...
+	<body>
+/access to site1 -> settings.py
+add module 'home' at 'INSTALLED APP'
+
+/view.py (dung de xem noi dung tra ve tren server)
+
+def get_home(request): //'request' is the variance 
+	return render(request,'home.html') //ham nay tra ve trang home.html
+
+/urls.py (import duong dan tu server den trang web)
+
+from home import view as home
+
+urlspattern...
+
+path('',home.get_home) //ham nay tro ve ham get_home
+
+/after applying all the settings, now run the server again
+python manage.py migrate 
+python manage.py runserver 8888
+
+(Remember to save manually on the VSC before migrating server)
+
+//connect database mysql to django
+/download XAMPP
+/access XAMPP -> start APACHE and MYSQL
+/access admin in MYSQL
+/Co so du lieu -> creat site1
+
+//back to VSC (ta co co ban 2 module da tao)
+/settings.py -> DATABASE -> custom to engine, name, user, password, host.
+
+DATABASES = {
+    'default': {
+        "ENGINE": "django.db.backends.mysql",
+        "NAME": "site1",
+        "USER": "root",
+        "PASSWORD": "",
+        "HOST": "localhost",
+    }
+}
+
+pip install pymysql
+
+/sau do save 
+python manage.py migrate
+
+//neu bao loi mariadb thi phai upgrade mariadb len ban cao hon trong xampp. len youtube coi huong dan
+
+/neu thanh cong thi refresh lai server va se thay thong tin duoc cap nhat len site1
+
+
+
