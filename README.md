@@ -23,44 +23,56 @@ admin (name of user)
 
 then text the line code 'python manage.py runserver 8888' to run server again, then add '/admin' continous on the site address to access into login site.
 
-
 /create a module 
-python manage.py startapp home ('home' is the name of module)
+python manage.py startapp appweb ('appweb' is the name of module)
 
 /add a module 
-setting.py -> Installed apps -> 'home'
+setting.py -> Installed apps -> 'appweb'
 
 /create a template (trang chu cua website)
-New folder -> 'Templates' -> create 'home.html'
+New folder -> 'Templates' -> pages -> create 'base.html'
 
-/access to 'home.html'
+/access to 'base.html'
 html5-boilerplate
-
-
+----
 /write a title
 	<header>
+ 	//tao khoi cho title
+ 	<title> {% block title %}{% endblock %}</title>
 	<header>
     <body>
-
-<h4>Here is title place </h4> //DAY LA NOI DUNG HAM home.html
+    	//tao khoi content
+	{% block content %}{% endblock %}
 ...
 	<body>
+---
+ //creat additional file html name 'home.html'
+---
+ {%extends 'pages/base.html' %}
+
+ {% block title %}HOMEPAGE{% endblock %} //tên của page được thể hiện khi access vào website
+
+ {% block content %}
+ Nội dung thể hiện ở khối này
+ ............
+ {% endblock %}
+//
 /access to site1 -> settings.py
-add module 'home' at 'INSTALLED APP'
+add module 'appweb' at 'INSTALLED APP'
+---
 
-/view.py (dung de xem noi dung tra ve tren server)
-
-def get_home(request): //'request' is the variance 
-	return render(request,'home.html') //ham nay tra ve trang home.html
-
+/views.py (dung de xem noi dung tra ve tren server)
+from django... import path, include
+---
+def index(request): //'request' is the variance 
+	return render(request, include('pages/home.html')) //ham nay tra ve trang home.html
+----
 /urls.py (import duong dan tu server den trang web)
 
-from home import view as home
-
-urlspattern...
-
-path('',home.get_home) //ham nay tro ve ham get_home
-
+from . import views
+----
+path('',views.index) //ham nay tro ve ham get_home
+----
 /after applying all the settings, now run the server again
 python manage.py migrate 
 python manage.py runserver 8888
