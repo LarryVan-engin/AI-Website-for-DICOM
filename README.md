@@ -1,4 +1,3 @@
-# AI-Website-for-DICOM
 Step to create a website
 
 /create site
@@ -23,56 +22,44 @@ admin (name of user)
 
 then text the line code 'python manage.py runserver 8888' to run server again, then add '/admin' continous on the site address to access into login site.
 
+
 /create a module 
-python manage.py startapp appweb ('appweb' is the name of module)
+python manage.py startapp home ('home' is the name of module)
 
 /add a module 
-setting.py -> Installed apps -> 'appweb'
+setting.py -> Installed apps -> 'home'
 
 /create a template (trang chu cua website)
-New folder -> 'Templates' -> pages -> create 'base.html'
+New folder -> 'Templates' -> create 'home.html'
 
-/access to 'base.html'
+/access to 'home.html'
 html5-boilerplate
-----
+
+
 /write a title
 	<header>
- 	//tao khoi cho title
- 	<title> {% block title %}{% endblock %}</title>
 	<header>
     <body>
-    	//tao khoi content
-	{% block content %}{% endblock %}
+
+<h4>Here is title place </h4> //DAY LA NOI DUNG HAM home.html
 ...
 	<body>
----
- //creat additional file html name 'home.html'
----
- {%extends 'pages/base.html' %}
-
- {% block title %}HOMEPAGE{% endblock %} //tên của page được thể hiện khi access vào website
-
- {% block content %}
- Nội dung thể hiện ở khối này
- ............
- {% endblock %}
-//
 /access to site1 -> settings.py
-add module 'appweb' at 'INSTALLED APP'
----
+add module 'home' at 'INSTALLED APP'
 
-/views.py (dung de xem noi dung tra ve tren server)
-from django... import path, include
----
-def index(request): //'request' is the variance 
-	return render(request, include('pages/home.html')) //ham nay tra ve trang home.html
-----
+/view.py (dung de xem noi dung tra ve tren server)
+
+def get_home(request): //'request' is the variance 
+	return render(request,'home.html') //ham nay tra ve trang home.html
+
 /urls.py (import duong dan tu server den trang web)
 
-from . import views
-----
-path('',views.index) //ham nay tro ve ham get_home
-----
+from home import view as home
+
+urlspattern...
+
+path('',home.get_home) //ham nay tro ve ham get_home
+
 /after applying all the settings, now run the server again
 python manage.py migrate 
 python manage.py runserver 8888
@@ -109,6 +96,10 @@ python manage.py migrate
 
 //tao file static/app
 /import 3 files source js, css va images
+
+//truy cap bootstrap de tim file css va html template voi javascript
+//import link source bootstrap
+
 /design tren home.html
 {% load static %}
 
@@ -173,5 +164,69 @@ python manage.py migrate
             </div>
           </nav>
 
+//icon tren menu bar
+<body>
+        <!-- Header menu -->
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid">
+              <a class="navbar-brand" href="#">
+                <img src="{% static 'decor/images/logo1.png' %}" width= "80" height= "80"/>AI FOR DICOM
+              </a>
+
+//banner tren website
+{% block banner_slide %}
+<div id="carouselExampleDark" class="carousel carousel-dark slide">
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+      <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
+      <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
+      <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="3" aria-label="Slide 4"></button>
+
+    </div>
+    
+    <div class="carousel-inner">
+      <div class="carousel-item active" data-bs-interval="10000">
+        <img src="{% static "decor/images/banner/ban1.png" %}" class="d-block w-100" alt="AI production">
+        <div class="carousel-caption d-none d-md-block">
+          <h5>AI production</h5>
+          <p>Artificial Intelligent in analysing DICOM images.</p>
+        </div>
+      </div>
+
+      <div class="carousel-item" data-bs-interval="2000">
+        <img src="{% static "decor/images/banner/ban2.png" %}" class="d-block w-100" alt="Second slide">
+        <div class="carousel-caption d-none d-md-block">
+          <h5></h5>
+          <p>Supply solutions for DICOM analysists.</p>
+        </div>
+      </div>
+      
+      <div class="carousel-item">
+        <img src="{% static "decor/images/banner/ban3.gif" %}" class="d-block w-100" alt="Third slide">
+        <div class="carousel-caption d-none d-md-block">
+          <h5>Faster and more accurate</h5>
+          <p>Presentative content</p>
+        </div>
+      </div>
+
+      <div class="carousel-item">
+        <img src="{% static "decor/images/banner/ban4.png" %}" class="d-block w-100" alt="Fourth slide" height="680">
+        <div class="carousel-caption d-none d-md-block">
+          <h5>Big data, big brain</h5>
+          <p>Presentative content</p>
+        </div>
+      </div>
+
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+{% endblock  %}
 
 
